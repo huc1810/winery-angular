@@ -1,5 +1,5 @@
 <!--<div class="modal fade" id="winery-detail" role="dialog" ng-controller="WineryDetailController">-->
-<div id="winery-detail"  >
+<!--<div id="winery-detail"  >-->
   <!-- Modal -->
   <!--<div class="modal-dialog">-->
     <form id="editWineryForm">
@@ -12,7 +12,7 @@
         <input type="hidden" value="{{ winery.id }}">
         <div class="modal-body">
           <label>Name: </label>
-          <input type="text" size="35" value="{{ winery.name }}">
+          <input type="text" size="35" name="name" value="{{ winery.name }}" ng-model="wineryS.name">
         </div>
        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -23,6 +23,7 @@
           <button type="button" class="btn btn-primary" ng-click="ok();">Accept</button>
         </div>
       </div>
+      <!--</div>-->
     </form>
   <!--</div>-->
-</div>
+<!--</div>-->

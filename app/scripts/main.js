@@ -45,7 +45,12 @@ wineryApp.controller('WineryDetailController', function($scope, $modalInstance, 
     $('#winery-detail').modal();
   });*/
 
-  $scope.winery = winery;
+  $scope.errorNameLength = false;
+  $scope.wineryS = winery;
+
+  $scope.$watch('wineryS.name', function(){
+    $scope.watcher();
+  });
 
   $scope.ok = function () {
     $modalInstance.close();
@@ -54,9 +59,16 @@ wineryApp.controller('WineryDetailController', function($scope, $modalInstance, 
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.watcher = function(){
+    $scope.errorNameLength = false;
+    if ($scope.wineryS.name.length > 20)
+    {
+      $scope.errorNameLength = true;
+      console.log($scope.wineryS);
+    }
+  }
 });
-
-
 
 wineryApp.directive('wineryListForm', function(){
     return {
@@ -96,6 +108,3 @@ describe('JasmineTest', function(){
       expect($scope.returnMessage()).toEqual("Bonjour le Québec");
   });
 });
-
-
-
