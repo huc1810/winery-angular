@@ -1,0 +1,31 @@
+<form id="main-form">
+  <table width="55%" class="table">
+    <thead>
+    <tr>
+      <th>
+        Id
+      </th>
+      <th>
+        Nombre
+      </th>
+      <th>
+        Options
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr ng-repeat="winery in listOfWineries">
+      <th>
+        {{ winery.id }}
+      </th>
+      <th>
+        {{ winery.name }}
+      </th>
+      <th>
+        <button class="btn btn-default openDetail" data-id="<%= store.id %>" ng-click="sendWinery( winery.id );" type="button">Edit</button>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+</form>
