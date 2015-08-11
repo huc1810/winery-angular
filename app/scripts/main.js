@@ -51,7 +51,7 @@ wineryApp.controller('WineryListController', ['$scope', '$http', '$modal', 'serv
 
 wineryApp.directive('wineryListForm', function(){
     return {
-          restrinct: 'E',
+          restrict: 'E',
           templateUrl: "/templates/wineryList.html"
     };
 });
@@ -112,12 +112,23 @@ describe('returns 7', function(){
   });
 });
 
-function Person(){
-  var fn = function(){
-    return "Hello, I'm a class";
-  }
 
-  return function(){
-    fn();
+var w = 10;
+
+var f2 = (function(x){
+
+  var y = 5;
+  return {
+    f: function(z){
+      return (w + x + y + z);
+    }
   };
-}
+});
+
+
+
+describe('Returns the addition of different scopes', function(){
+  it('sends the external variable', function(){
+    expect(f2(5).f(4)).toEqual(24);
+  });
+});
