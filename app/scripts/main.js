@@ -1,74 +1,53 @@
 var wineryApp = angular.module('WineryApp', ['ui.bootstrap']);
 
-wineryApp.controller('WineryListController', ['$scope', '$http', '$modal', function($scope, $http, $modal) {
+wineryApp.service('serviceWinery', function(){
+  this.Otherwinery = {};
+});
+
+wineryApp.controller('WineryListController', ['$scope', '$http', '$modal', 'serviceWinery', function($scope, $http, $modal, serviceWinery) {
   $scope.name = 'Hugo SOSA';
 
   $http.get('http://localhost:8888/BBApiRest/app/api/wines.php')
     .success(function(response){
-       $scope.listOfWineries = response;
+       $scope.listOfWineries = response ;
+
     });
 
   $scope.selectedWinery = null
   $scope.animationsEnabled = true;
   $scope.sendWinery = function(id){
 
-    $scope.listOfWineries.forEach(function(item){
+  angular.forEach($scope.listOfWineries, function(item, key){
+
       if (item.id == id)
       {
         //$scope.$broadcast('sendWinery', {winery: item});
         $scope.selectedWinery = item;
 
+        serviceWinery.otherWinery = $scope.selectedWinery;
+
+        console.log("main controller");
+        console.log(serviceWinery.otherWinery);
+
         var modalInstance = $modal.open({
           animation: $scope.animationsEnabled,
           templateUrl: 'templates/wineryDetail.html',
           controller: 'WineryDetailController',
-          size: 'lg',
-           resolve: {
+          size: '',
+          resolve: {
             winery: function () {
               return $scope.selectedWinery;
             }
           }
         });
 
-        modalInstance.result.then(function () {
-
-        }, function() { });
-
-        }
-    });
+        modalInstance.result.then(function () { },
+          function() { });
+      }
+  });
   }
 }]);
 
-wineryApp.controller('WineryDetailController', function($scope, $modalInstance, winery){
-  /*$scope.$on('sendWinery', function(winery){
-    $scope.winery = winery;
-    $('#winery-detail').modal();
-  });*/
-
-  $scope.errorNameLength = false;
-  $scope.wineryS = winery;
-
-  $scope.$watch('wineryS.name', function(){
-    $scope.watcher();
-  });
-
-  $scope.ok = function () {
-    $modalInstance.close();
-  };
-
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
-  };
-
-  $scope.watcher = function(){
-    $scope.errorNameLength = false;
-    if ($scope.wineryS.name.length > 20)
-    {
-      $scope.errorNameLength = true;
-      console.log($scope.wineryS);
-    }
-  }
-});
 
 wineryApp.directive('wineryListForm', function(){
     return {
@@ -77,6 +56,16 @@ wineryApp.directive('wineryListForm', function(){
     };
 });
 
+
+
+
+
+
+
+
+
+/*Testing code*/
+
 wineryApp.directive('wineryDetail', function(){
   return {
     /*restrinct: 'E',
@@ -84,12 +73,18 @@ wineryApp.directive('wineryDetail', function(){
   };
 });
 
+
+
+
 wineryApp.controller('JasmineTest', function($scope){
 
   $scope.returnMessage = function(){
     return "Bonjour le Québec";
   };
 });
+
+
+
 
 
 describe('JasmineTest', function(){
@@ -103,8 +98,26 @@ describe('JasmineTest', function(){
 
   it('returns Bonjour le Québec', function(){
       var $scope = {};
-      var controller = $controller('JasmineTest', {$scope: $scope});
+      $controller('JasmineTest', {$scope: $scope});
 
       expect($scope.returnMessage()).toEqual("Bonjour le Québec");
   });
 });
+
+var f = function(x){ return x + 5; }
+
+describe('returns 7', function(){
+  it('returns addition', function(){
+    expect(f(2)).toBe(7);
+  });
+});
+
+function Person(){
+  var fn = function(){
+    return "Hello, I'm a class";
+  }
+
+  return function(){
+    fn();
+  };
+}

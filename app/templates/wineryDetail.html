@@ -11,8 +11,14 @@
         </div>
         <input type="hidden" value="{{ winery.id }}">
         <div class="modal-body">
-          <label>Name: </label>
-          <input type="text" size="35" name="name" value="{{ winery.name }}" ng-model="wineryS.name">
+          <label>Name  : </label>
+          <input type="text" size="45" name="name" value="{{ wineryS.name }}" ng-model="wineryS.name">
+          <br>
+          <label>Grape : </label>
+          <input type="text" size="45" name="name" value="{{ wineryS.grapes }}" ng-model="wineryS.grapes">
+          <br>
+          <label>Castle: </label>
+          <input type="text" size="45" name="name" value="{{ wineryS.castle }}" ng-model="wineryS.castle">
         </div>
        <!-- <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,5 +1,5 @@
 <form id="main-form">
-  <table width="55%" class="table">
+  <table width="80%" class="table">
     <thead>
     <tr>
       <th>
@@ -9,6 +9,12 @@
         Nombre
       </th>
       <th>
+        Grape
+      </th>
+      <th>
+        Castle
+      </th>
+      <th>
         Options
       </th>
     </tr>
@@ -16,11 +22,17 @@
     <tbody>
 
     <tr ng-repeat="winery in listOfWineries">
-      <th>
+      <th width="5%">
         {{ winery.id }}
       </th>
-      <th>
+      <th width="35%">
         {{ winery.name }}
+      </th>
+      <th width="20%">
+        {{ winery.grapes }}
+      </th>
+      <th width="20%">
+        {{ winery.castle }}
       </th>
       <th>
         <button class="btn btn-default openDetail" data-id="<%= store.id %>" ng-click="sendWinery( winery.id );" type="button">Edit</button>
