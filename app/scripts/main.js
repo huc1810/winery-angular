@@ -4,56 +4,101 @@ wineryApp.service('serviceWinery', function(){
   this.Otherwinery = {};
 });
 
-wineryApp.controller('WineryListController', ['$scope', '$http', '$modal', 'serviceWinery', function($scope, $http, $modal, serviceWinery) {
-  $scope.name = 'Hugo SOSA';
+wineryApp.factory('getWineriesList', function($http){
 
-  $http.get('http://localhost:8888/BBApiRest/app/api/wines.php')
-    .success(function(response){
-       $scope.listOfWineries = response ;
+  var factory = {};
 
-    });
-
-  $scope.selectedWinery = null
-  $scope.animationsEnabled = true;
-  $scope.sendWinery = function(id){
-
-  angular.forEach($scope.listOfWineries, function(item, key){
-
-      if (item.id == id)
-      {
-        //$scope.$broadcast('sendWinery', {winery: item});
-        $scope.selectedWinery = item;
-
-        serviceWinery.otherWinery = $scope.selectedWinery;
-
-        console.log("main controller");
-        console.log(serviceWinery.otherWinery);
-
-        var modalInstance = $modal.open({
-          animation: $scope.animationsEnabled,
-          templateUrl: 'templates/wineryDetail.html',
-          controller: 'WineryDetailController',
-          size: '',
-          resolve: {
-            winery: function () {
-              return $scope.selectedWinery;
-            }
-          }
-        });
-
-        modalInstance.result.then(function () { },
-          function() { });
-      }
-  });
+  factory.getWineries = function(){
+     return $http.get('http://localhost:8888/BBApiRest/app/api/wines.php?page=1&records=5');
   }
-}]);
 
+  return factory;
+});
 
-wineryApp.directive('wineryListForm', function(){
+wineryApp.controller('WineryListController', function($scope, $http, $log, serviceWinery, getWineriesList) {
+
+  $scope.totalItems = 64;
+  $scope.currentPage = 4;
+
+  $scope.setPage = function (pageNo) {
+    $scope.currentPage = pageNo;
+  };
+
+  $scope.pageChanged = function() {
+
+    alert("Hola");
+
+    $scope.request = getWineriesList.getWineries();
+  };
+
+  $scope.pageChanged();
+
+  $scope.maxSize = 5;
+  $scope.bigTotalItems = 175;
+  $scope.bigCurrentPage = 1;
+});
+
+wineryApp.directive('wineryListForm', function($modal){
     return {
           restrict: 'E',
-          templateUrl: "/templates/wineryList.html"
+
+          templateUrl: "/templates/wineryList.html",
+        //  scope: { promise: '=wineryListForm' },
+          link: function (scope, elem, attrs) {
+            scope.promise.success(function (data) {
+
+              scope.listOfWineries = data;
+
+            });
+
+
+
+            scope.selectedWinery = null;
+            scope.animationsEnabled = true;
+            scope.modalParameters = {
+              animation: scope.animationsEnabled,
+              templateUrl: 'templates/wineryDetail.html',
+              controller: 'WineryDetailController',
+              size: ''
+            };
+
+            scope.sendWinery = function(id){
+
+              angular.forEach(scope.listOfWineries, function(item, key){
+
+                if (item.id == id)
+                {
+                  scope.selectedWinery = item;
+                  scope.modalParameters.resolve = {
+                    winery: function () {
+                      return scope.selectedWinery;
+                    }
+                  }
+
+                  var modalInstance = $modal.open(scope.modalParameters);
+
+                  modalInstance.result.then(function () { },
+                    function() { });
+                }
+              });
+            }
+          }
     };
+});
+
+wineryApp.filter('truncateText', function(){
+
+  return function(text){
+    var truncated = text.slice(0, 15);
+
+    if (text.length > 20)
+    {
+      truncated += '...';
+    }
+
+    return truncated;
+  };
+
 });
 
 
@@ -132,3 +177,24 @@ describe('Returns the addition of different scopes', function(){
     expect(f2(5).f(4)).toEqual(24);
   });
 });
+
+
+function Animal(name, weight, age){
+  this.name = name;
+  this.weight = weight;
+  this.age = age;
+  this.ownerName = '';
+}
+
+Animal.prototype = {
+  constructor: Animal,
+  changeName: function(newName){
+    this.name = newName;
+  },
+  setOwnerName: function(ownerName){
+    this.ownerName = ownerName;
+  }
+};
+
+var animal = new Animal("Max", 50, 7);
+

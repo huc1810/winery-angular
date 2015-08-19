@@ -15,6 +15,12 @@
         Castle
       </th>
       <th>
+        Type
+      </th>
+      <th>
+      Year
+      </th>
+      <th>
         Options
       </th>
     </tr>
@@ -26,13 +32,19 @@
         {{ winery.id }}
       </th>
       <th width="35%">
-        {{ winery.name }}
+        {{ winery.name | truncateText}}
       </th>
       <th width="20%">
-        {{ winery.grapes }}
+        {{ winery.grape }}
       </th>
       <th width="20%">
         {{ winery.castle }}
+      </th>
+      <th width="20%">
+        {{ winery.type }}
+      </th>
+      <th width="20%">
+        {{ winery.year }}
       </th>
       <th>
         <button class="btn btn-default openDetail" data-id="<%= store.id %>" ng-click="sendWinery( winery.id );" type="button">Edit</button>
@@ -40,4 +52,5 @@
     </tr>
     </tbody>
   </table>
+
 </form>

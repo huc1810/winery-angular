@@ -1,35 +1,42 @@
-<!--<div class="modal fade" id="winery-detail" role="dialog" ng-controller="WineryDetailController">-->
-<!--<div id="winery-detail"  >-->
-  <!-- Modal -->
-  <!--<div class="modal-dialog">-->
     <form id="editWineryForm">
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Winery Detail</h4>
+          <h4 class="modal-title">Wine details</h4>
         </div>
         <input type="hidden" value="{{ winery.id }}">
         <div class="modal-body">
-          <label>Name  : </label>
-          <input type="text" size="45" name="name" value="{{ wineryS.name }}" ng-model="wineryS.name">
+          <div class="inline">
+            <div><label>Name</label></div>
+            <div><input type="text" size="40" name="name" value="{{ wineryS.name }}" ng-model="wineryS.name"></div>
+
+          </div>
+          <div class="inline">
+            <div><label>Grape</label></div>
+            <div><input type="text" size="15" name="grapes" value="{{ wineryS.grape }}" ng-model="wineryS.grape"></div>
+          </div>
+          <div class="inline">
+            <div> <label>Castle</label></div>
+            <div> <input type="text" size="15" name="castle" value="{{ wineryS.castle }}" ng-model="wineryS.castle"></div>
+          </div>
           <br>
-          <label>Grape : </label>
-          <input type="text" size="45" name="name" value="{{ wineryS.grapes }}" ng-model="wineryS.grapes">
-          <br>
-          <label>Castle: </label>
-          <input type="text" size="45" name="name" value="{{ wineryS.castle }}" ng-model="wineryS.castle">
+          <div class="inline">
+            <div> <label>Type</label></div>
+            <div> <input type="text" size="15" name="type" value="{{ wineryS.type }}" ng-model="wineryS.type"></div>
+          </div>
+          <div class="inline">
+            <div> <label>Year</label></div>
+            <div> <input type="text" size="15" name="year" value="{{ wineryS.year }}" ng-model="wineryS.year"></div>
+          </div>
+          <div class="inline">
+            <div> <label>Stars</label></div>
+            <div> <input type="text" size="15" name="stars" value="{{ wineryS.stars }}" ng-model="wineryS.stars"></div>
+          </div>
         </div>
-       <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary accept-data">Accept</button>
-        </div>-->
         <div class="modal-footer">
           <button type="button" class="btn btn-default" ng-click="cancel();">Close</button>
           <button type="button" class="btn btn-primary" ng-click="ok();">Accept</button>
         </div>
       </div>
-      <!--</div>-->
     </form>
-  <!--</div>-->
-<!--</div>-->

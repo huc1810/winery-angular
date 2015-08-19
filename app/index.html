@@ -18,6 +18,11 @@
 
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="/bower_components/jasmine/lib/jasmine-core/jasmine.css">
+    <style>
+      .inline{
+        display: inline-table;
+      }
+    </style>
     <!-- endbuild -->
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
@@ -46,13 +51,12 @@
         <p><a class="btn btn-lg btn-success" href="#">Splendid! <span class="glyphicon glyphicon-ok"></span></a></p>
       </div>
 
-      <div class="row marketing" ng-controller="WineryListController" ng-click="doubleNumber(5)">
-        <label ng-model="name">{{ name }}</label>
-
-        <winery-list-form></winery-list-form>
-        <winery-detail></winery-detail>
+      <div class="row marketing" ng-controller="WineryListController">
 
 
+        <winery-list-form> </winery-list-form>
+
+        <pagination total-items="totalItems" ng-model="currentPage" ng-change="pageChanged()"></pagination>
       </div>
       <!--<winery-list-directive></winery-list-directive>-->
       <div class="footer"wineryDetail>
@@ -68,18 +72,7 @@
     <!-- endbuild -->
 
     <!-- build:js(.) scripts/plugins.js -->
-   <!-- <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/affix.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/alert.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/dropdown.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tooltip.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/modal.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/button.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/popover.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/carousel.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/scrollspy.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
-    <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>-->
+
     <!-- endbuild -->
 
 
