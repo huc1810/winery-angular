@@ -9,7 +9,7 @@ wineryApp.factory('getWineriesList', function($http){
   var factory = {};
 
   factory.getWineries = function(){
-     return $http.get('http://localhost:8888/BBApiRest/app/api/wines.php?page=1&records=5');
+     return $http.get('http://localhost:8888/BBApiRest/app/api/wines.php?page=1&records=10');
   }
 
   return factory;
@@ -25,8 +25,6 @@ wineryApp.controller('WineryListController', function($scope, $http, $log, servi
   };
 
   $scope.pageChanged = function() {
-
-    alert("Hola");
 
     $scope.request = getWineriesList.getWineries();
   };
